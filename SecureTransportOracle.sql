@@ -1,5 +1,5 @@
--- 01 ´´½¨±í¿Õ¼ä
--- ×¢Òâ±í¿Õ¼äµÄÂ·¾¶ ¸ù¾ÝÊµ¼Ê°²×°»·¾³½øÐÐµ÷Õû
+-- 01 åˆ›å»ºè¡¨ç©ºé—´
+-- æ³¨æ„è¡¨ç©ºé—´çš„è·¯å¾„ æ ¹æ®å®žé™…å®‰è£…çŽ¯å¢ƒè¿›è¡Œè°ƒæ•´
 
 CREATE TABLESPACE ts_seckey_admin 
     LOGGING  
@@ -18,17 +18,17 @@ ALTER DATABASE DATAFILE '/home/oracle_11/app/oradata/orcl/ts_seckeymng_op.dbf' A
 commit;
 
 
--- 02 ´´½¨·½°¸ (´´½¨ÓÃ»§)
+-- 02 åˆ›å»ºæ–¹æ¡ˆ (åˆ›å»ºç”¨æˆ·)
 CREATE USER SECMNG  PROFILE DEFAULT 
     IDENTIFIED BY SECMNG DEFAULT TABLESPACE USERS
     ACCOUNT UNLOCK;
 
--- ×ÊÔ´ºÍµÇÂ¼È¨ÏÞ
+-- èµ„æºå’Œç™»å½•æƒé™
 GRANT resource TO SECMNG;
 GRANT create session TO SECMNG;
 
 
--- ´´½¨ ÍøµãÐÅÏ¢±í --±àºÅ Ãû³Æ ÃèÊö ÊÚÈ¨Âë ×´Ì¬(0¿ÉÓÃ  1²»¿ÉÓÃ)
+-- åˆ›å»º ç½‘ç‚¹ä¿¡æ¯è¡¨ --ç¼–å· åç§° æè¿° æŽˆæƒç  çŠ¶æ€(0å¯ç”¨  1ä¸å¯ç”¨)
 CREATE TABLE SECMNG.SECNODE(
 	id     				char(4) PRIMARY KEY, 
 	name     			VARCHAR2(128) NOT NULL,
@@ -38,11 +38,11 @@ CREATE TABLE SECMNG.SECNODE(
  	state     			NUMBER(4)
 )TABLESPACE ts_seckey_admin;
 
-INSERT INTO SECMNG.secnode VALUES('0001', 'ÆÕ»Ý½ðÈÚ', 'ºê¸®¼Î»á¹ã³¡B×ù4²ã', '18-11ÔÂ-15', 1, 0);
-INSERT INTO SECMNG.secnode VALUES('0002', 'ÆÖ·¢½ðÈÚ', '·áÈÚ¹ú¼Ê´óÏÃ', '18-7ÔÂ-15', 1111, 0);
+INSERT INTO SECMNG.secnode VALUES('0001', 'æ™®æƒ é‡‘èž', 'å®åºœå˜‰ä¼šå¹¿åœºBåº§4å±‚', '18-11æœˆ-15', 1, 0);
+INSERT INTO SECMNG.secnode VALUES('0002', 'æµ¦å‘é‡‘èž', 'ä¸°èžå›½é™…å¤§åŽ¦', '18-7æœˆ-15', 1111, 0);
 commit;
 
--- ´´½¨ ÍøµãÃÜÔ¿±í, ¿Í»§¶ËÍøµã ·þÎñÆ÷¶ËÍøµã ÃÜÔ¿ºÅ ÃÜÔ¿²úÉúÊ±¼ä ÃÜÔ¿×´Ì¬ 
+-- åˆ›å»º ç½‘ç‚¹å¯†é’¥è¡¨, å®¢æˆ·ç«¯ç½‘ç‚¹ æœåŠ¡å™¨ç«¯ç½‘ç‚¹ å¯†é’¥å· å¯†é’¥äº§ç”Ÿæ—¶é—´ å¯†é’¥çŠ¶æ€ 
 CREATE TABLE SECMNG.SECKYEINFO(
 	clientid          	char(4) constraint secmng_seckeynode_clientid_fk references SECMNG.SECNODE(id),
 	serverid          	char(4) constraint secmng_seckeynode_serverid_fk references SECMNG.SECNODE(id),
@@ -52,13 +52,13 @@ CREATE TABLE SECMNG.SECKYEINFO(
 	seckey				VARCHAR2(512)
 )TABLESPACE ts_seckey_admin;
 
---´´½¨Ë÷Òý ÔÚÐÂµÄ±í¿Õ¼äÉÏ
+--åˆ›å»ºç´¢å¼• åœ¨æ–°çš„è¡¨ç©ºé—´ä¸Š
 CREATE  INDEX SECMNG.IX_SECKYEINFO_clientid ON SECMNG.SECKYEINFO(clientid) TABLESPACE ts_seckey_admin;
 
 commit;
 
 
--- keysnÐòÁÐºÅ
+-- keysnåºåˆ—å·
 CREATE TABLE SECMNG.KEYSN(
 ikeysn 		number(12)  PRIMARY KEY
 ) TABLESPACE ts_seckey_admin;
@@ -72,7 +72,7 @@ CREATE TABLE SECMNG.SRVCFG(
 	valude			VARCHAR2(128)
 )TABLESPACE ts_seckey_admin;
 	
--- ´´½¨ ½»Ò×ÐÅÏ¢±í ½»Ò×Õß ½»Ò×Ê±¼ä ½»Ò×ÊÂ¼þ ½»Ò×ÃèÊö £¨Ê²Ã´ÈË ÔÚÊ²Ã´Ê±¼ä ¸ÉÁËÊ²Ã´ÊÂ£©
+-- åˆ›å»º äº¤æ˜“ä¿¡æ¯è¡¨ äº¤æ˜“è€… äº¤æ˜“æ—¶é—´ äº¤æ˜“äº‹ä»¶ äº¤æ˜“æè¿° ï¼ˆä»€ä¹ˆäºº åœ¨ä»€ä¹ˆæ—¶é—´ å¹²äº†ä»€ä¹ˆäº‹ï¼‰
 CREATE TABLE SECMNG.TRAN(
 	iID					Number(12) PRIMARY KEY,
  	tran_operator     	NUMBER,
@@ -82,10 +82,10 @@ CREATE TABLE SECMNG.TRAN(
 )TABLESPACE ts_seckey_op;
 
 
--- ´´½¨Ë÷Òý
+-- åˆ›å»ºç´¢å¼•
 CREATE INDEX SECMNG.IX_TRAN_tran_operator ON SECMNG.TRAN(tran_operator) TABLESPACE ts_seckey_op;
 
--- ´´½¨´¥·¢Æ÷ ×ÔÔö×Ö¶Î
+-- åˆ›å»ºè§¦å‘å™¨ è‡ªå¢žå­—æ®µ
 CREATE SEQUENCE SECMNG.SEQiID INCREMENT BY 1 START WITH 1 
     MAXVALUE 1.0E28 MINVALUE 1 NOCYCLE 
     CACHE 20 NOORDER;
@@ -99,12 +99,12 @@ end;
 /
 
 
-INSERT INTO SECMNG.TRAN(tran_operator, trantime, tranid, trandesc) VALUES(1, '15-7ÔÂ-15', 1, '´´½¨ÍøÒø×Ü½Úµã-²âÊÔÊý¾Ý');
+INSERT INTO SECMNG.TRAN(tran_operator, trantime, tranid, trandesc) VALUES(1, '15-7æœˆ-15', 1, 'åˆ›å»ºç½‘é“¶æ€»èŠ‚ç‚¹-æµ‹è¯•æ•°æ®');
 
 commit;
 
-------Í£Ö¹-----
--- 04´´½¨ÐÂÓÃ»§·½°¸ 	Í¨¹ý SECMNGUSER1 À´·ÃÎÊÊý¾Ý¿â, ÈÃ¹ÜÀíÖÕ¶ËÏµÍ³ÓÃ   
+------åœæ­¢-----
+-- 04åˆ›å»ºæ–°ç”¨æˆ·æ–¹æ¡ˆ 	é€šè¿‡ SECMNGUSER1 æ¥è®¿é—®æ•°æ®åº“, è®©ç®¡ç†ç»ˆç«¯ç³»ç»Ÿç”¨   
 CREATE USER "SECMNGADMIN"  PROFILE "DEFAULT" IDENTIFIED BY "123456" DEFAULT TABLESPACE "USERS" ACCOUNT UNLOCK;
 
 GRANT "CONNECT" TO "SECMNGADMIN";
