@@ -1,5 +1,4 @@
 -- 01 创建表空间
--- 注意表空间的路径 根据实际安装环境进行调整
 
 CREATE TABLESPACE ts_seckey_admin 
     LOGGING  
