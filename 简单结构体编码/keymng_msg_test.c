@@ -15,7 +15,7 @@ void Print(Teacher *p)
 int main()
 {
 	int						ret = 0;
-	unsigned char		*myOut = NULL;
+	unsigned char			*myOut = NULL;
 	int						myOutlen;
 	int						iType = 0;
 

@@ -64,10 +64,10 @@ int MsgKey_Res_Free(MsgKey_Res **pRes)
 // Teacher 编码
 int TeacherEncode(Teacher *pTeacher, unsigned char **out)
 {
-	int				ret = 0;
+	int			ret = 0;
 	ANYBUF		*pTmp = NULL, *pHead = NULL;	// TLV结构体
-	ANYBUF		*pTmpBuf = NULL;		// 编码后"字符串"
-	ANYBUF		*pOutData = NULL;		//	临时存储结构体
+	ANYBUF		*pTmpBuf = NULL;				// 编码后"字符串"
+	ANYBUF		*pOutData = NULL;				// 临时存储结构体
 
 	// BER 报文转码 将char* name ---> AnyBuf
 	ret = DER_String_To_AnyBuf(&pTmpBuf, (unsigned char *)pTeacher->name, strlen(pTeacher->name));
@@ -130,10 +130,10 @@ int TeacherEncode(Teacher *pTeacher, unsigned char **out)
 // Teacher 解码
 int TeacherDncode(unsigned char *indata, int inLen, Teacher **pStruct)
 {
-	int					ret = 0;
+	int				ret = 0;
 	ANYBUF			*pTmp = NULL, *pHead = NULL;	// 链表
-	ANYBUF			*pOutData = NULL;							// 临时存储结构体
-	ANYBUF			*pTmpAnyBuf = NULL;					// 临时存储AnyBuf
+	ANYBUF			*pOutData = NULL;				// 临时存储结构体
+	ANYBUF			*pTmpAnyBuf = NULL;				// 临时存储AnyBuf
 
 	Teacher			*pStructT = NULL;
 
@@ -231,9 +231,9 @@ int TeacherDncode(unsigned char *indata, int inLen, Teacher **pStruct)
 // MsgKey_Req 编码
 int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 {
-	int					ret = 0;
-	ANYBUF			*pTmp = NULL, *pHead = NULL;
-	ANYBUF			*pOutData = NULL;								// 存储结构体
+	int				ret = 0;
+	ANYBUF			*pTmp = NULL, *pHead = NULL;	// 链表
+	ANYBUF			*pOutData = NULL;				// 存储结构体
 
 	// int cmdType编码
 	ret = DER_ASN1_WriteInteger(pReq->cmdType, &pHead);
@@ -297,7 +297,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 // MsgKey_Req 解码
 int ID_MsgKey_Req_Dncode(unsigned char *indata, int inLen, MsgKey_Req **pStruct)
 {
-	int					ret = 0;
+	int				ret = 0;
 	ANYBUF			*pTmp = NULL, *pHead = NULL;
 	ANYBUF			*pOutData = NULL;
 	ANYBUF			*tmpAnyBuf = NULL;
@@ -396,9 +396,9 @@ int ID_MsgKey_Req_Dncode(unsigned char *indata, int inLen, MsgKey_Req **pStruct)
 // MsgKey_Res 编码
 int ID_MsgKey_Res_Encode(MsgKey_Res *pRes, unsigned char **out)
 {
-	int				ret = 0;
+	int			ret = 0;
 	ANYBUF		*pTmp = NULL, *pHead = NULL;
-	ANYBUF		*pOutData = NULL;								// 存储结构体
+	ANYBUF		*pOutData = NULL;				// 存储结构体
 
 
 	// int rv编码
@@ -463,7 +463,7 @@ int ID_MsgKey_Res_Encode(MsgKey_Res *pRes, unsigned char **out)
 // MsgKey_Res 解码
 int ID_MsgKey_Res_Dncode(unsigned char *indata, int inLen, MsgKey_Res **pStruct)
 {
-	int					ret = 0;
+	int				ret = 0;
 	ANYBUF			*pTmp = NULL, *pHead = NULL;
 	ANYBUF			*pOutData = NULL;
 	ANYBUF			*tmpAnyBuf = NULL;
@@ -559,15 +559,15 @@ int ID_MsgKey_Res_Dncode(unsigned char *indata, int inLen, MsgKey_Res **pStruct)
 
 // 报文 编码
 int MsgEncode(
-	void						*pStruct,		/*in*/
-	int						type,
+	void				*pStruct,	/*in*/
+	int					type,
 	unsigned char		**outData,	/*out*/
-	int						*outLen)
+	int					*outLen)
 {
-	int						 ret = 0;													// 返回值
-	ANYBUF				*pTmp = NULL, *pHead = NULL;		// 链表
-	ANYBUF				*pTmpBuf = NULL;									//临时存储指针
-	ANYBUF				*pOutData = NULL;									//临时储存输出结构体
+	int					ret = 0;						// 返回值
+	ANYBUF				*pTmp = NULL, *pHead = NULL;	// 链表
+	ANYBUF				*pTmpBuf = NULL;				//临时存储指针
+	ANYBUF				*pOutData = NULL;				//临时储存输出结构体
 
 	if ((NULL == pStruct && type < 0) || NULL == outData || NULL == outLen){
 		ret = KeyMng_ParamErr;
@@ -630,14 +630,14 @@ int MsgEncode(
 // 报文 解码
 int MsgDecode(
 	unsigned char		*inData,	/*in*/
-	int						inLen,
-	void						**pStruct		/*out*/,
-	int						*type		/*out*/)
+	int					inLen,
+	void				**pStruct	/*out*/,
+	int					*type		/*out*/)
 {
-	int				 ret = 0;
-	int				 pType = NULL;
-	ANYBUF		 *tmpAnyBuf = NULL;
-	ANYBUF		 *pTmp = NULL, *pHead = NULL;
+	int				 	ret = 0;
+	int				 	pType = NULL;
+	ANYBUF		 		*tmpAnyBuf = NULL;
+	ANYBUF		 		*pTmp = NULL, *pHead = NULL;
 
 	// 转码 BER 报文  unsigned char* ---> ANYBUF
 	ret = DER_String_To_AnyBuf(&tmpAnyBuf, inData, inLen);
