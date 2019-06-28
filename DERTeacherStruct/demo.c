@@ -53,7 +53,6 @@ int TeacherEncode(Teacher *pTeacher, unsigned char **out, int *outlen)
 		printf("DER_ASN1_WritePrintableString name error: %d\n", ret);
 		return ret;
 	}
-	DER_FreeQueue(pTmpBuf);
 	pTmp = pHeadBuf;
 
 	// 编码age
@@ -89,6 +88,8 @@ int TeacherEncode(Teacher *pTeacher, unsigned char **out, int *outlen)
 	}
 	*out = pOutData->pData;
 	*outlen = pOutData->dataLen;
+
+	return 0;
 }
 
 // 编码写入二进制文件
@@ -115,7 +116,7 @@ int TeacherDecode(unsigned char *indata, int inLen, Teacher **pStruct)
 
 	Teacher *pStructT = NULL;
 
-	// 转码 BER 报文 unsigned char * --->ANYBUF
+	// 转码 BER 报文 unsigned char* --->ANYBUF
 	ret = DER_String_To_AnyBuf(&tmpAnyBuf, indata, inLen);
 	if (0 != ret){
 		printf("DER_String_To_AnyBuf Decode error: %d\n", ret);
@@ -123,7 +124,7 @@ int TeacherDecode(unsigned char *indata, int inLen, Teacher **pStruct)
 	// 解码大结构体
 	ret = DER_ASN1_ReadSequence(tmpAnyBuf, &pHead);
 	if (0 != ret){
-		if (tmpAnyBuf != NULL)
+		if (NULL != tmpAnyBuf)
 			DER_FreeQueue(tmpAnyBuf);
 		printf("DER_ASN1_ReadSequence Decode error: %d\n", ret);
 		return ret;
@@ -131,7 +132,7 @@ int TeacherDecode(unsigned char *indata, int inLen, Teacher **pStruct)
 
 	// 给Teacher结构体malloc空间
 	if (NULL == pStructT) {
-		pStructT = (Teacher *)malloc(sizeof(Teacher));
+		pStructT = (Teacher **)malloc(sizeof(Teacher));
 		if (NULL == pStructT){
 			DER_FreeQueue(pHead);
 			ret = -1;
@@ -174,7 +175,7 @@ int TeacherDecode(unsigned char *indata, int inLen, Teacher **pStruct)
 		return ret;
 	}
 	// 给 char *p 开辟空间
-	pStructT->p = malloc(pOutData->dataLen + 1);
+	pStructT->p = (char *)malloc(pOutData->dataLen + 1);
 	if (NULL == pStructT->p){
 		DER_FreeQueue(pHead);
 		FreeTeacher(&pStructT);
@@ -182,7 +183,7 @@ int TeacherDecode(unsigned char *indata, int inLen, Teacher **pStruct)
 		printf("Teacher->p malloc error: %d", ret);
 		return ret;
 	}
-	memset(pStructT->p, 0, sizeof(pOutData->dataLen));
+	memset(pStructT->p, 0, sizeof(pStructT->p));
 	memcpy(pStructT->p, pOutData->pData, pOutData->dataLen);
 	pStructT->p[pOutData->dataLen] = '\0';
 
