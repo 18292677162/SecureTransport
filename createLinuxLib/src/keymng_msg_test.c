@@ -1,5 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "keymng_msg.h"
@@ -116,6 +115,5 @@ int main()
 	MsgMemFree((void **)&myOut, 0);
 	MsgMemFree((void **)&myStruct, 61);
 
-	system("pause");
 	return 0;
 }
