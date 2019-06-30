@@ -237,7 +237,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// int cmdType编码
 	ret = DER_ASN1_WriteInteger(pReq->cmdType, &pHead);
-	if (NULL != ret){
+	if (0 != ret){
 		printf("cmdType DER_ASN1_WriteInteger error: %d", ret);
 		return ret;
 	}
@@ -247,7 +247,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// char *clientId编码
 	ret = EncodeChar(pReq->clientId, 12, &pTmp->next);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("clientId EncodeChar error: %d", ret);
 		return ret;
@@ -256,7 +256,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// char *AuthCode编码
 	ret = EncodeChar(pReq->AuthCode, 16, &pTmp->next);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("AuthCode EncodeChar error: %d", ret);
 		return ret;
@@ -265,7 +265,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// char *serverId编码
 	ret = EncodeChar(pReq->serverId, 12, &pTmp->next);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("serverId EncodeChar error: %d", ret);
 		return ret;
@@ -274,7 +274,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// char *r1编码
 	ret = EncodeChar(pReq->r1, 64, &pTmp->next);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("r1 EncodeChar error: %d", ret);
 		return ret;
@@ -282,7 +282,7 @@ int ID_MsgKey_Req_Encode(MsgKey_Req *pReq, unsigned char **out)
 
 	// 大结构体编码
 	ret = DER_ASN1_WriteSequence(pHead, &pOutData);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("MsgKey_Req DER_ASN1_WriteSequence error: %d", ret);
 		return ret;
@@ -440,7 +440,7 @@ int ID_MsgKey_Res_Encode(MsgKey_Res *pRes, unsigned char **out)
 
 	// int seckeyid编码
 	ret = DER_ASN1_WriteInteger(pRes->seckeyid, &pTmp->next);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("seckeyid DER_ASN1_WriteInteger error: %d", ret);
 		return ret;
@@ -448,7 +448,7 @@ int ID_MsgKey_Res_Encode(MsgKey_Res *pRes, unsigned char **out)
 
 	// 大结构体编码
 	ret = DER_ASN1_WriteSequence(pHead, &pOutData);
-	if (NULL != ret){
+	if (0 != ret){
 		DER_FreeQueue(pHead);
 		printf("MsgKey_Res ID_MsgKey_Res_Encode error: %d", ret);
 		return ret;
