@@ -45,7 +45,7 @@ static int Error_OpenFile(int* pf)
 	
 	memset(fileName, 0, sizeof(fileName));
 #ifdef WIN32
-	sprintf(fileName, "c:\\itcast\\%s",DEBUG_FILE);
+	sprintf(fileName, "f:\\%s",DEBUG_FILE);
 #else
 	sprintf(fileName, "%s/log/%s", getenv("HOME"), DEBUG_FILE);
 #endif

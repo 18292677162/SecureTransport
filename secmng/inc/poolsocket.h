@@ -7,19 +7,19 @@ extern 'C'
 #endif
 
 //错误码定义  
-#define Sck_Ok             	0
-#define Sck_BaseErr   		3000
+#define Sck_Ok              0
+#define Sck_BaseErr         3000
 
-#define Sck_ErrParam                	(Sck_BaseErr+1)
-#define Sck_ErrTimeOut                	(Sck_BaseErr+2)
+#define Sck_ErrParam                    (Sck_BaseErr+1)
+#define Sck_ErrTimeOut                  (Sck_BaseErr+2)
 #define Sck_ErrPeerClosed               (Sck_BaseErr+3)
-#define Sck_ErrMalloc			   		(Sck_BaseErr+4)
+#define Sck_ErrMalloc                   (Sck_BaseErr+4)
 
-#define Sck_Err_Pool_CreateConn				(Sck_BaseErr+20) //创建连接池 （没有达到最大连接数）
-#define Sck_Err_Pool_terminated				(Sck_BaseErr+21) //已终止
-#define Sck_Err_Pool_GetConn_ValidIsZero	(Sck_BaseErr+22) //有效连接数是零
-#define Sck_Err_Pool_HaveExist				(Sck_BaseErr+22) //连接已经在池中
-#define Sck_Err_Pool_ValidBounds			(Sck_BaseErr+22) //有效连接数目超过了最大连接数
+#define Sck_Err_Pool_CreateConn             (Sck_BaseErr+20) //创建连接池 （没有达到最大连接数）
+#define Sck_Err_Pool_terminated             (Sck_BaseErr+21) //已终止
+#define Sck_Err_Pool_GetConn_ValidIsZero    (Sck_BaseErr+22) //有效连接数是零
+#define Sck_Err_Pool_HaveExist              (Sck_BaseErr+22) //连接已经在池中
+#define Sck_Err_Pool_ValidBounds            (Sck_BaseErr+22) //有效连接数目超过了最大连接数
 
 
 //客户端 初始化
@@ -48,12 +48,12 @@ int sck_FreeMem(void **buf);
 
 typedef struct _SCKClitPoolParam
 {
-	char 	serverip[64];
-	int 	serverport;
-	int 	bounds; //池容量
-	int 	connecttime;
-	int 	sendtime;
-	int 	revtime;
+    char    serverip[64];
+    int     serverport;
+    int     bounds; //池容量
+    int     connecttime;
+    int     sendtime;
+    int     revtime;
 }SCKClitPoolParam;
 
 
