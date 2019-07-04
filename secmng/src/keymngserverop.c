@@ -46,6 +46,10 @@ int MngServer_InitInfo(MngServer_Info *svrInfo)
     svrInfo->shmkey = 0x0001
     svrInfo->shmhdl = 0;
 
+    // 创建共享内存
+
+    // 创建数据库连接池
+
     return 0;
 }
 

@@ -42,7 +42,7 @@ INSERT INTO SECMNG.secnode VALUES('1111', '广东分中心1111', '广州天河�
 commit;
 
 -- 创建 网点密钥表, 客户端网点 服务器端网点 密钥号 密钥产生时间 密钥状态 
-CREATE TABLE SECMNG.SECKYEINFO(
+CREATE TABLE SECMNG.SECKEYINFO(
 	clientid          	char(4) constraint secmng_seckeynode_clientid_fk references SECMNG.SECNODE(id),
 	serverid          	char(4) constraint secmng_seckeynode_serverid_fk references SECMNG.SECNODE(id),
 	keyid            	NUMBER(9) PRIMARY KEY, 
