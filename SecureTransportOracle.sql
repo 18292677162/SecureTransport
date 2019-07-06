@@ -52,7 +52,7 @@ CREATE TABLE SECMNG.SECKEYINFO(
 )TABLESPACE ts_seckey_admin;
 
 --创建索引 在新的表空间上
-CREATE  INDEX SECMNG.IX_SECKYEINFO_clientid ON SECMNG.SECKEYINFO(clientid) TABLESPACE ts_seckey_admin;
+CREATE  INDEX SECMNG.IX_SECKEYINFO_clientid ON SECMNG.SECKEYINFO(clientid) TABLESPACE ts_seckey_admin;
 
 commit;
 
