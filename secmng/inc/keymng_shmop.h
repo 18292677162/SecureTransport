@@ -22,7 +22,7 @@ typedef struct _NodeSHMInfo
 	char			serverId[12];	//服务器端id	
 	int				seckeyid;		//对称密钥id
 	unsigned char	seckey[128];	//对称密钥 //hash1 hash256 md5
-}NodeSHMInfo;
+} NodeSHMInfo;
 
 
 //int KeyMng_ShmInit(int keyid, int keysize, void *shmid )

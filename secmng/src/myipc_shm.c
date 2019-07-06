@@ -9,7 +9,8 @@
 #include <sys/shm.h>
 #include <sys/sem.h>
 #include <sys/msg.h>
-#include "myipc_shm.h" 
+
+#include "myipc_shm.h"
 
 #endif
 
@@ -64,7 +65,7 @@ int IPC_OpenShm(int key, int shmsize, int *shmhdl)
                 shmhdl   [out] 共享内存的句柄.
   返回值：      返回0函数执行成功；非0返回错误码
 ************************************************************************/
-int IPC_CreatShmBySeedName(char *shmseedfile, int shmsize, int *shmhdl)
+int IPC_CreatShmBySeedName(const char *shmseedfile, int shmsize, int *shmhdl)
 {
     if(shmflag == 0)			//判断接口中共享内存key是否已经存在
     {
@@ -91,8 +92,7 @@ int IPC_CreatShmBySeedName(char *shmseedfile, int shmsize, int *shmhdl)
                 mapaddr [out] 共享内存首地址
   返回值：      返回0函数执行成功；非0返回错误码
 ************************************************************************/
-int
-IPC_MapShm(int  shmhdl, void **mapaddr)
+int IPC_MapShm(int  shmhdl, void **mapaddr)
 {
     void *tempptr = NULL;
 

@@ -39,7 +39,7 @@ typedef struct _MsgKey_Req
 typedef struct _MsgKey_Res
 {
     //  1 密钥协商      // 2 密钥校验
-    int             rv;             // 返回值
+    int             rv;             // 返回值  0有效  1无效
     char            clientId[12];   //客户端编号
     char            serverId[12];   //服务器编号
     unsigned char   r2[64];         //服务器端随机数

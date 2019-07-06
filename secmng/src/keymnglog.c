@@ -10,7 +10,7 @@
 
 #include "keymnglog.h"
 
-#define DEBUG_FILE	"keymngclient.log"
+#define DEBUG_FILE	"keymng.log"
 #define MAX_STRING_LEN 		10240
 
 //Level类别

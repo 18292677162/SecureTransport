@@ -2,17 +2,17 @@
 
 CREATE TABLESPACE ts_seckey_admin 
     LOGGING  
-    DATAFILE '/home/oracle_11/app/oradata/orcl/ts_seckeymng_admin.dbf' SIZE 50M 
+    DATAFILE '/home/oracle/app/oradata/orcl/ts_seckeymng_admin.dbf' SIZE 50M 
     EXTENT MANAGEMENT LOCAL;
     
 
 CREATE TABLESPACE ts_seckey_op
     LOGGING 
-    DATAFILE '/home/oracle_11/app/oradata/orcl/ts_seckeymng_op.dbf' SIZE 200M
+    DATAFILE '/home/oracle/app/oradata/orcl/ts_seckeymng_op.dbf' SIZE 200M
     EXTENT MANAGEMENT LOCAL;
     
-ALTER DATABASE DATAFILE '/home/oracle_11/app/oradata/orcl/ts_seckeymng_admin.dbf' AUTOEXTEND ON NEXT   50M MAXSIZE UNLIMITED;
-ALTER DATABASE DATAFILE '/home/oracle_11/app/oradata/orcl/ts_seckeymng_op.dbf' AUTOEXTEND ON NEXT  200M MAXSIZE UNLIMITED; 
+ALTER DATABASE DATAFILE '/home/oracle/app/oradata/orcl/ts_seckeymng_admin.dbf' AUTOEXTEND ON NEXT   50M MAXSIZE UNLIMITED;
+ALTER DATABASE DATAFILE '/home/oracle/app/oradata/orcl/ts_seckeymng_op.dbf' AUTOEXTEND ON NEXT  200M MAXSIZE UNLIMITED; 
 
 commit;
 
@@ -37,8 +37,8 @@ CREATE TABLE SECMNG.SECNODE(
  	state     			NUMBER(4)
 )TABLESPACE ts_seckey_admin;
 
-INSERT INTO SECMNG.secnode VALUES('0001', '网银中心', '北京金融街23号', '15-7月-15', 1, 0);
-INSERT INTO SECMNG.secnode VALUES('1111', '广东分中心1111', '广州天河金融', '15-7月-15', 1111, 0);
+INSERT INTO SECMNG.secnode VALUES('0001', '服务器总网点', '深圳南山区', '10-1月-19', 0001, 0);
+INSERT INTO SECMNG.secnode VALUES('0002', '客户端网点1', '上海浦发大厦', '11-1月-19', 0002, 0);
 commit;
 
 -- 创建 网点密钥表, 客户端网点 服务器端网点 密钥号 密钥产生时间 密钥状态 
@@ -52,7 +52,7 @@ CREATE TABLE SECMNG.SECKEYINFO(
 )TABLESPACE ts_seckey_admin;
 
 --创建索引 在新的表空间上
-CREATE  INDEX SECMNG.IX_SECKYEINFO_clientid ON SECMNG.SECKYEINFO(clientid) TABLESPACE ts_seckey_admin;
+CREATE  INDEX SECMNG.IX_SECKYEINFO_clientid ON SECMNG.SECKEYINFO(clientid) TABLESPACE ts_seckey_admin;
 
 commit;
 
@@ -98,7 +98,7 @@ end;
 /
 
 
-INSERT INTO SECMNG.TRAN(tran_operator, trantime, tranid, trandesc) VALUES(1, '15-7月-15', 1, '创建网银总节点-测试数据');
+INSERT INTO SECMNG.TRAN(tran_operator, trantime, tranid, trandesc) VALUES(1, '13-1月-19', 1, '数据测试');
 
 commit;
 
@@ -122,17 +122,12 @@ GRANT DELETE ON SECMNG.SECNODE TO "SECMNGADMIN";
 GRANT INSERT ON SECMNG.SECNODE TO "SECMNGADMIN";
 GRANT UPDATE ON SECMNG.SECNODE TO "SECMNGADMIN";
 
-GRANT DELETE ON SECMNG.SECKYEINFO TO "SECMNGADMIN";
-GRANT INSERT ON SECMNG.SECKYEINFO TO "SECMNGADMIN";
-GRANT UPDATE ON SECMNG.SECKYEINFO TO "SECMNGADMIN";
+GRANT DELETE ON SECMNG.SECKEYINFO TO "SECMNGADMIN";
+GRANT INSERT ON SECMNG.SECKEYINFO TO "SECMNGADMIN";
+GRANT UPDATE ON SECMNG.SECKEYINFO TO "SECMNGADMIN";
 
 GRANT DELETE ON SECMNG.TRAN TO "SECMNGADMIN";
 GRANT INSERT ON SECMNG.TRAN TO "SECMNGADMIN";
 GRANT UPDATE ON SECMNG.TRAN TO "SECMNGADMIN";
 
 commit;
-
-    
- 
--- Insert Into SECMNG.SECKYEINFO(clientid, serverid, keyid, createtime, state, seckey)
--- values ('1111', '0001', 1, to_date('2015-07-14 21:09:09', 'yyyy-mm-dd hh24:mi:ss'), 0, 'zzz')  ;

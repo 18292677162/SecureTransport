@@ -11,7 +11,7 @@ extern "C" {
 #endif
 
 //共享内存错误码
-#define		MYIPC_OK				0		//正确
+#define		MYIPC_OK				     0		//正确
 #define		MYIPC_ParamErr			301		//输入参数失败
 #define		MYIPC_NotEXISTErr		302		//共享内存不存在错误
 #define		MYIPC_CreateErr			303		//创建共享内存错误

@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "keymngclientop.h"
-#include "keymng_msg.h"
-#include "keymnglog.h"
 
+#include "keymngclientop.h"
+#include "keymnglog.h"
+#include "keymngserverop.h"
+#include "keymng_shmop.h"
 
 // 显示菜单
 int Menu()
@@ -57,7 +58,7 @@ int main()
             break;
         //密钥校验
         case KeyMng_Check:
-            //ret = MngClient_Check();
+            ret = MngClient_Check(&mngClientInfo);
             break;
         //密钥注销
         case KeyMng_Revoke:
@@ -68,10 +69,10 @@ int main()
         }
         if (ret)
         {       
-            printf("\n***************ERROR*************");
+            printf("\n***************ERROR**************");
             printf("错误码: %d\n", ret);
         } else {
-            printf("\n**************SUCCESS************");
+            printf("\n***************FINISH*************");
         }
         getchar();
     }
