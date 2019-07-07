@@ -12,7 +12,9 @@ extern "C" {
 
 int KeyMngsvr_DBOp_GenKeyID(void *dbhdl, int *keyid);
 
-int KeyMngsvr_DBOp_WriteSecKey(void *dbhdl, NodeSHMInfo *pNodeInfo); 
+int KeyMngsvr_DBOp_WriteSecKey(void *dbhdl, NodeSHMInfo *pNodeInfo);
+
+int KeyMngsvr_DBOp_WriteSecKeyStatus(void *dbhdl, NodeSHMInfo *pNodeInfo);
 
 #ifdef __cplusplus
 }

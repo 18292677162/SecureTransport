@@ -111,6 +111,42 @@ int KeyMngsvr_DBOp_WriteSecKey(void *dbhdl, NodeSHMInfo *pNodeInfo)
 	return ret;
 }
 
+//写密钥  插入共享内存结构体 到数据库   seckinof
+int KeyMngsvr_DBOp_WriteSecKeyStatus(void *dbhdl, NodeSHMInfo *pNodeInfo) 
+{
+    int         ret = 0;
+    char        mysql[2048] = {0};
+    
+    char        optime[24]  = {0};
+    int         tmplen = 1024;
+    char        buf2[1024];
+    
+    memset(mysql, 0, sizeof(mysql));
+    
+    // 获取当前操作时间
+    ret = IC_DBApi_GetDBTime(dbhdl, optime);
+    if (ret != 0)
+    {
+        KeyMng_Log(__FILE__, __LINE__,KeyMngLevel[4], ret,"func IC_DBApi_GetDBTime() err");
+        goto END;
+    }
+
+    //组织sql语句
+    sprintf(mysql, "Update SECMNG.SECKEYINFO set STATE = %d where KEYID = %d", pNodeInfo->status, pNodeInfo->seckeyid);
+   
+    //执行非select sql语句
+    ret = IC_DBApi_ExecNSelSql(dbhdl, mysql);
+    if (ret != 0)
+    {
+        KeyMng_Log(__FILE__, __LINE__,KeyMngLevel[4], ret, "func IC_DBApi_ExecNSelSql() err \n sql===>%s\n", mysql);
+        goto END;
+    }
+    
+  
+ END:   
+    return ret;
+}
+
 //测试PEM和DER互转
 int IC_DBApi_Pem2Der_Test2()
 {

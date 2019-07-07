@@ -44,7 +44,7 @@ int MngServer_InitInfo(MngServer_Info *svrInfo)
     strcpy(svrInfo->dbsid, "orcl");
     svrInfo->dbpoolnum = 8;
 
-    strcpy(svrInfo->serverip, "127.0.0.1");
+    strcpy(svrInfo->serverip, "192.168.93.178");
     svrInfo->serverport = 8001;
 
     svrInfo->maxnode = 10;
@@ -103,9 +103,8 @@ int MngServer_Agree(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned cha
     strcpy(msgKey_Res.serverId, msgkeyReq->serverId);
 
     // 生成随机数 r2
-    for (i = 0; i < 64; i++)
-    {
-        msgKey_Res.r2[i] = 'a' + 1;
+    for(i = 0; i < 64; i++) {
+        msgKey_Res.r2[i] = rand() % 10 + 'a';
     }
 
     // 获取一条连接池连接
@@ -194,33 +193,34 @@ int MngServer_Check(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned cha
         KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "服务器 KeyMng_ShmWrite error: %d", ret);
         return ret;
     }    
-    // 加密比较
+    // 比较密钥
     for (i = 0; i < 16; i++) {
-        if(0 != strcmp(msgkeyReq->r1[n++], nodeSHMInfo.seckey[i])) {
-            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥不匹配错误");
+        if(msgkeyReq->r1[n++] != nodeSHMInfo.seckey[i]) {
+            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥1不匹配错误 error: %d", i);
             msgKey_Res.rv = 1;
         }
     }
-    for (i = 31; i < 48; i++) {
-        if(0 != strcmp(msgkeyReq->r1[n++], nodeSHMInfo.seckey[i])) {
-            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥不匹配错误");
+    for (i = 32; i < 48; i++) {
+        if(msgkeyReq->r1[n++] != nodeSHMInfo.seckey[i]) {
+            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥2不匹配错误 error: %d", i);
             msgKey_Res.rv = 1;
         }
     }
-    for (i = 63; i < 80; i++) {
-        if(0 != strcmp(msgkeyReq->r1[n++], nodeSHMInfo.seckey[i])) {
-            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥不匹配错误");
+    for (i = 64; i < 80; i++) {
+        if(msgkeyReq->r1[n++] != nodeSHMInfo.seckey[i]) {
+            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥3不匹配错误 error: %d", i);
             msgKey_Res.rv = 1;
         }
     }
-    for (i = 95; i < 112; i++) {
-        if(0 != strcmp(msgkeyReq->r1[n++], nodeSHMInfo.seckey[i])) {
-            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥不匹配错误");
+    for (i = 96; i < 112; i++) {
+        if(msgkeyReq->r1[n++] != nodeSHMInfo.seckey[i]) {
+            KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "密钥校验-->密钥4不匹配错误 error: %d", i);
             msgKey_Res.rv = 1;
         }
     }
 
     // 组织密钥应答结构体
+
     strcpy(msgKey_Res.clientId, msgkeyReq->clientId);
     strcpy(msgKey_Res.serverId, msgkeyReq->serverId); 
 
@@ -234,8 +234,72 @@ int MngServer_Check(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned cha
     return 0;
 }
 
+int MngServer_Revoke(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen)
+{
+    int             ret = 0;
 
+    ICDBHandle      handle = NULL;
 
+    MsgKey_Res      msgKey_Res;
+
+    NodeSHMInfo     nodeSHMInfo;    
+
+    // 比较请求信息
+    if(0 != strcmp(svrInfo->serverId, msgkeyReq->serverId)) {
+        KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "客户端访问了错误的服务器!");
+        return -1;
+    }
+    msgKey_Res.rv = 0;  // 0-成功 1-失败
+    strcpy(msgKey_Res.clientId, msgkeyReq->clientId);
+    strcpy(msgKey_Res.serverId, msgkeyReq->serverId);
+    msgKey_Res.seckeyid = msgkeyReq->r1[0];
+
+    // 获取一条连接池连接
+    ret = IC_DBApi_ConnGet(&handle, 0, 0);
+    if (0 != ret) {
+        KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "服务器 IC_DBApi_ConnGet error: %d", ret);
+        return ret;
+    }
+
+    // 开启事务
+    ret = IC_DBApi_BeginTran(handle);
+
+    nodeSHMInfo.status = 1;  //0-有效 1-无效
+    strcpy(nodeSHMInfo.clientId, msgkeyReq->clientId);
+    strcpy(nodeSHMInfo.serverId, msgkeyReq->serverId);
+    nodeSHMInfo.seckeyid = msgkeyReq->r1[0];
+
+    // 写数据库
+    ret = KeyMngsvr_DBOp_WriteSecKeyStatus(handle, &nodeSHMInfo); 
+    if (0 != ret) {
+        KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "服务器 KeyMngsvr_DBOp_WriteSecKey error: %d", ret);
+    }
+
+    // 关闭事务
+    if (0 != ret) {
+        IC_DBApi_Rollback(handle);
+        IC_DBApi_ConnFree(handle, 0); // 断链修复
+        return -1;
+    } else {
+        IC_DBApi_Commit(handle);
+        IC_DBApi_ConnFree(handle, 1); // 不修复
+    }
+
+    // 写入共享内存
+    ret = KeyMng_ShmWrite(svrInfo->shmhdl, svrInfo->maxnode, &nodeSHMInfo);
+    if (0 != ret) {
+        KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "服务器 KeyMng_ShmWrite error: %d", ret);
+        return ret;
+    }
+    // 编码应答报文输出
+    ret = MsgEncode(&msgKey_Res, ID_MsgKey_Res, outData, datalen);
+    if(0 != ret) {
+        KeyMng_Log(__FILE__, __LINE__, KeyMngLevel[4], ret, "MsgEncode error: %d", ret);
+        return ret;
+    }
+
+    return 0;
+}
 
 
 

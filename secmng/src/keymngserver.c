@@ -78,7 +78,7 @@ void *start_routine(void *arg)
             break;
         // 密钥注销
         case KeyMng_Revoke:
-            //MngServer_Revoke(MngServer_Info *svrInfo, MsgKey_Req *msgkeyReq, unsigned char **outData, int *datalen);
+            ret = MngServer_Revoke(&serverInfo, pStruct_Req, &res_outData, &res_outDataLen);
             break;
         // 密钥查看
         case KeyMng_Look:

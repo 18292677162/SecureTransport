@@ -62,14 +62,14 @@ int main()
             break;
         //密钥注销
         case KeyMng_Revoke:
-            //ret = MngClient_Revoke();
+            ret = MngClient_Revoke(&mngClientInfo);
             break;
         default:
             printf("输入数值不合法, 请重新输入\n");
         }
         if (ret)
         {       
-            printf("\n***************ERROR**************");
+            printf("\n***************ERROR**************\n");
             printf("错误码: %d\n", ret);
         } else {
             printf("\n***************FINISH*************");
