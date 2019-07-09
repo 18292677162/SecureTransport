@@ -94,11 +94,11 @@ void CFormBackground::OnDraw(CDC* pDC)
 
 	pDC->SelectObject(&font);
 	pDC->SetBkMode(TRANSPARENT);
-	rect.OffsetRect(6, -90); //背影
+	rect.OffsetRect(6, -90);   //背影
 	pDC->SetTextColor(RGB(192, 192, 192));
 	pDC->DrawText(string, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 
-	rect2.OffsetRect(0, -100);
+	rect2.OffsetRect(0, -100);  //主体
 	pDC->SetTextColor(RGB(0, 0, 0));
 	pDC->DrawText(string, &rect2, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 }

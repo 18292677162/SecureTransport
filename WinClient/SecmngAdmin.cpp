@@ -10,6 +10,7 @@
 
 #include "SecmngAdminDoc.h"
 #include "SecmngAdminView.h"
+#include "secmng_globvar.h"		// 全局变量，只包含一次
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -38,8 +39,34 @@ CSecmngAdminApp::CSecmngAdminApp()
 	// 将所有重要的初始化放置在 InitInstance 中
 }
 
+int CSecmngAdminApp::NewODBC_Connect()
+{
+	// 指针访问速度快
+	g_pDB = &myDB;	// g_pDB 代表一条连接，用于数据库操作
+	CString strCon;
+
+	TRY
+	{
+		strCon.Format("DSN=%s;UID=%s;PWD=%s", g_dbSource, g_dbUser, g_dbPwd);
+		if (g_pDB->OpenEx(strCon, CDatabase::noOdbcDialog) == FALSE) {
+			// AfxMessageBox("连接数据库失败！");
+			return -1;
+		}
+	}
+	CATCH_ALL(e)
+	{
+		e->ReportError();
+	}
+	END_CATCH_ALL
+
+	return 0;
+}
+
 int CSecmngAdminApp::readSecMngCfg()
 {
+	int ret = 0;
+	char pValue[64] = { 0 };
+	int pValueLen = sizeof(pValue);
 	// 找 .exe目录位置
 	// F:\SecmngAdmin\Debug\SecmngAdmin.exe
 	// F:\SecmngAdmin\Debug\secmngadmin.ini
@@ -47,13 +74,43 @@ int CSecmngAdminApp::readSecMngCfg()
 	GetModuleFileName(AfxGetInstanceHandle(), fileName, 1024);
 
 	// 拼接文件路径
-	CString g_strINIPath = fileName;			// 定义CString类变量  CString API
+	CString g_strINIPath = fileName;		// 定义CString类变量  CString API
 	int i = g_strINIPath.ReverseFind('\\');	// 逆序查找到 '\'
 	g_strINIPath = g_strINIPath.Left(i);		// 取 '\' 的左边字符串
 
 	g_strINIPath = g_strINIPath + "\\" + "secmngadmin.ini";		// 拼接新文件路径
 
-	ret = getSource(unsigned char * fileName, char* key, char** value, int* valueLen);
+	// 读取 DSN
+	ret = GetCfgItem((LPTSTR)(LPCTSTR)g_strINIPath, "DSN", pValue, &pValueLen);
+	if (0 != ret) {
+		// AfxMessageBox("读取 DSN 失败");
+		return ret;
+	}
+	
+	// 全局变量赋值
+	g_dbSource = pValue;
+	memset(pValue, 0, sizeof(pValue));
+
+	// 读取 UID
+	ret = GetCfgItem((LPTSTR)(LPCTSTR)g_strINIPath, "UID", pValue, &pValueLen);
+	if (0 != ret) {
+		// AfxMessageBox("读取 UID 失败");
+		return ret;
+	}
+
+	// 全局变量赋值
+	g_dbUser = pValue;
+	memset(pValue, 0, sizeof(pValue));
+
+	// 读取 PWD
+	ret = GetCfgItem((LPTSTR)(LPCTSTR)g_strINIPath, "PWD", pValue, &pValueLen);
+	if (0 != ret) {
+		// AfxMessageBox("读取 PWD 失败");
+		return ret;
+	}
+
+	// 全局变量赋值
+	g_dbPwd = pValue;
 
 	return 0;
 }
@@ -72,17 +129,38 @@ BOOL CSecmngAdminApp::InitInstance()
 	// 使用 RichEdit 控件需要  AfxInitRichEdit2()	
 	// AfxInitRichEdit2();
 
-	// 标准初始化
+	// 弹出对话框用户输入信息
+	CDlgInitCfg dlgInitCfg;
 
+	// 标准初始化
 	// 读取配置文件
 	ret = readSecMngCfg();
 	if (0 != ret) {
-		// 弹出对话框用户输入信息
-		
+		AfxMessageBox("配置文件不存在！");
+
+		if (dlgInitCfg.DoModal() == IDCANCEL) {
+			return FALSE;
+		}
+
+		// 全局变量赋值
+		g_dbSource = dlgInitCfg.m_dbDSN;
+		g_dbUser = dlgInitCfg.m_dbUID;
+		g_dbPwd = dlgInitCfg.m_dbPWD;
 	}
+	/*
 	else {
-		// 全局变量--->连接数据库
+		AfxMessageBox("DSN:" + g_dbSource + " UID:" + g_dbUser + " PWD:" + g_dbPwd);
 	}
+	*/
+
+	// 全局变量--->连接数据库
+	ret = CSecmngAdminApp::NewODBC_Connect();
+	if (ret != 0) {
+		AfxMessageBox("数据库连接失败");
+		return FALSE;
+	}
+
+
 	// 如果未使用这些功能并希望减小
 	// 最终可执行文件的大小，则应移除下列
 	// 不需要的特定初始化例程

@@ -7,8 +7,9 @@
 	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
 #endif
 
-#include "resource.h"       // 主符号
-
+#include "resource.h"    // 主符号
+#include "cfg_op.h"		// 设置读写
+#include "DlgInitCfg.h"	// 输入信息
 
 // CSecmngAdminApp:
 // 有关此类的实现，请参阅 SecmngAdmin.cpp
@@ -24,6 +25,7 @@ public:
 public:
 	virtual BOOL InitInstance();
 	int readSecMngCfg();
+	int CSecmngAdminApp::NewODBC_Connect();
 
 // 实现
 	afx_msg void OnAppAbout();

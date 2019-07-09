@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CfgView.h" />
+    <ClInclude Include="cfg_op.h" />
+    <ClInclude Include="DlgInitCfg.h" />
     <ClInclude Include="DlgNetInfo.h" />
     <ClInclude Include="FormBackground.h" />
     <ClInclude Include="GFXGROUPEDIT.H" />
@@ -112,12 +114,15 @@
     <ClInclude Include="SecmngAdmin.h" />
     <ClInclude Include="SecmngAdminDoc.h" />
     <ClInclude Include="SecmngAdminView.h" />
+    <ClInclude Include="secmng_globvar.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SysAll.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CfgView.cpp" />
+    <ClCompile Include="cfg_op.cpp" />
+    <ClCompile Include="DlgInitCfg.cpp" />
     <ClCompile Include="DlgNetInfo.cpp" />
     <ClCompile Include="FormBackground.cpp" />
     <ClCompile Include="GFXGROUPEDIT.CPP" />
