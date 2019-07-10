@@ -75,6 +75,9 @@
     <ClInclude Include="secmng_globvar.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SECMNGSRVCFG.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SecmngAdmin.cpp">
@@ -120,6 +123,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DlgInitCfg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SECMNGSRVCFG.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

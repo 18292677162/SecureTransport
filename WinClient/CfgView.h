@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-
+#include "SECMNGSRVCFG.h"
 
 // CCfgView 窗体视图
 
@@ -26,7 +26,11 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton1();
+	CString m_strsrvip; 
+	CString m_strsrvmaxnode;
+	CString m_strsrvport;
+	virtual void OnInitialUpdate();
+	afx_msg void OnBnClickedSrvcfg();
 };
 
 

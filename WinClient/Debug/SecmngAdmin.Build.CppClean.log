@@ -3,6 +3,8 @@ f:\secmngadmin\secmngadmin\debug\vc120.pdb
 f:\secmngadmin\secmngadmin\debug\vc120.idb
 f:\secmngadmin\secmngadmin\debug\stdafx.obj
 f:\secmngadmin\secmngadmin\debug\cfgview.obj
+f:\secmngadmin\secmngadmin\debug\cfg_op.obj
+f:\secmngadmin\secmngadmin\debug\dlginitcfg.obj
 f:\secmngadmin\secmngadmin\debug\dlgnetinfo.obj
 f:\secmngadmin\secmngadmin\debug\formbackground.obj
 f:\secmngadmin\secmngadmin\debug\gfxgroupedit.obj
@@ -14,8 +16,7 @@ f:\secmngadmin\secmngadmin\debug\secmngadmin.obj
 f:\secmngadmin\secmngadmin\debug\secmngadmindoc.obj
 f:\secmngadmin\secmngadmin\debug\secmngadminview.obj
 f:\secmngadmin\secmngadmin\debug\sysall.obj
-f:\secmngadmin\secmngadmin\debug\cfg_op.obj
-f:\secmngadmin\secmngadmin\debug\dlginitcfg.obj
+f:\secmngadmin\secmngadmin\debug\secmngsrvcfg.obj
 f:\secmngadmin\debug\secmngadmin.ilk
 f:\secmngadmin\debug\secmngadmin.exe
 f:\secmngadmin\debug\secmngadmin.pdb

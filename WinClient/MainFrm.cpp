@@ -136,7 +136,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 
 	CRect r;
 	GetClientRect(&r);
-	int w1 = r.Width() / 5;
+	int w1 = r.Width() / 8;
 	int w2 = r.Width() / 4;
 
 	wndSplitter.SetColumnInfo(0, w1, 0);
