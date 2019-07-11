@@ -78,6 +78,15 @@
     <ClInclude Include="SECMNGSRVCFG.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SECMNGSECNODE.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgCreateNet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgChangeNet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SecmngAdmin.cpp">
@@ -126,6 +135,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SECMNGSRVCFG.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SECMNGSECNODE.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgCreateNet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgChangeNet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,6 +195,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="background.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="secnode_images.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

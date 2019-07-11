@@ -101,8 +101,10 @@
   <ItemGroup>
     <ClInclude Include="CfgView.h" />
     <ClInclude Include="cfg_op.h" />
+    <ClInclude Include="DlgChangeNet.h" />
     <ClInclude Include="DlgInitCfg.h" />
     <ClInclude Include="DlgNetInfo.h" />
+    <ClInclude Include="DlgCreateNet.h" />
     <ClInclude Include="FormBackground.h" />
     <ClInclude Include="GFXGROUPEDIT.H" />
     <ClInclude Include="GFXOUTBARCTRL.H" />
@@ -114,6 +116,7 @@
     <ClInclude Include="SecmngAdmin.h" />
     <ClInclude Include="SecmngAdminDoc.h" />
     <ClInclude Include="SecmngAdminView.h" />
+    <ClInclude Include="SECMNGSECNODE.h" />
     <ClInclude Include="SECMNGSRVCFG.h" />
     <ClInclude Include="secmng_globvar.h" />
     <ClInclude Include="stdafx.h" />
@@ -123,8 +126,10 @@
   <ItemGroup>
     <ClCompile Include="CfgView.cpp" />
     <ClCompile Include="cfg_op.cpp" />
+    <ClCompile Include="DlgChangeNet.cpp" />
     <ClCompile Include="DlgInitCfg.cpp" />
     <ClCompile Include="DlgNetInfo.cpp" />
+    <ClCompile Include="DlgCreateNet.cpp" />
     <ClCompile Include="FormBackground.cpp" />
     <ClCompile Include="GFXGROUPEDIT.CPP" />
     <ClCompile Include="GFXOUTBARCTRL.CPP" />
@@ -134,6 +139,7 @@
     <ClCompile Include="SecmngAdmin.cpp" />
     <ClCompile Include="SecmngAdminDoc.cpp" />
     <ClCompile Include="SecmngAdminView.cpp" />
+    <ClCompile Include="SECMNGSECNODE.cpp" />
     <ClCompile Include="SECMNGSRVCFG.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -161,6 +167,7 @@
     <Image Include="res\SecmngAdminDoc.ico" />
     <Image Include="res\set.ico" />
     <Image Include="res\user.ico" />
+    <Image Include="secnode_images.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

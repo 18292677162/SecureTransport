@@ -1,5 +1,5 @@
 ﻿
-#include "stdafx.h"  //别忘记 增加这个头文件的说明
+#include "stdafx.h"  //增加头文件的说明
 
 #define  _CRT_SECURE_NO_WARNINGS 
 #include <stdlib.h>
@@ -107,7 +107,7 @@ End:
 //实现流程
 //循环读每一行，检查key配置项是否存在 若存在修改对应value值
 //若不存在，在文件末尾 添加 "key = value"
-//难点：如何修改文件流中的值
+//难点：修改文件流中的值
 int WriteCfgItem(char *pFileName /*in*/, char *pKey /*in*/, char * pValue/*in*/, int ValueLen /*in*/)
 {
 	int		rv = 0, iTag = 0, length = 0;
