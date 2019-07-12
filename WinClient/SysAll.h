@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-
+#include "keymngclientop.h"
 
 // CSysAll 窗体视图
 
@@ -25,6 +25,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButtonSysinit();
+	afx_msg void OnBnClickedButtonAgree();
 };
 
 

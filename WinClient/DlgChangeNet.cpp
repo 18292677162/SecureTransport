@@ -72,6 +72,7 @@ void CDlgChangeNet::OnBnClickedOk()
 		rsetMngSecNode.m_ID = m_id;
 		rsetMngSecNode.m_NAME = m_name;
 		rsetMngSecNode.m_NODEDESC = m_info;
+		rsetMngSecNode.m_CREATETIME = m_time;
 		rsetMngSecNode.m_STATE = _ttoi(m_state);
 		rsetMngSecNode.m_AUTHCODE = _ttoi(m_authcode);
 		rsetMngSecNode.Update();

@@ -87,6 +87,33 @@
     <ClInclude Include="DlgChangeNet.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="keymng_msg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="myipc_shm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="poolsocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="socketlog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="socketutil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keymng_shmop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keymngclientop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="keymnglog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SecmngAdmin.cpp">
@@ -144,6 +171,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DlgChangeNet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="myipc_shm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="socketlog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="socketutil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="keymng_shmop.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="keymngclientop.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="keymnglog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

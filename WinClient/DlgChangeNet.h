@@ -26,4 +26,5 @@ public:
 	CString m_name;
 	CString m_authcode;
 	CString m_state;
+	CTime m_time;
 };
