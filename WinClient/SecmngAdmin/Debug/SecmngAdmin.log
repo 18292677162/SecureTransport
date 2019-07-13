@@ -1,0 +1,17 @@
+﻿  SysAll.cpp
+f:\secmngadmin\secmngadmin\keymngclientop.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  正在生成代码...
+  正在跳过...(未检测到相关更改)
+  SecmngAdminView.cpp
+  SecmngAdminDoc.cpp
+  SecmngAdmin.cpp
+  MainFrm.cpp
+  GFXOUTBARCTRL.CPP
+  FormBackground.cpp
+  DlgNetInfo.cpp
+  DlgInitCfg.cpp
+  DlgCreateNet.cpp
+  DlgClient.cpp
+  DlgChangeNet.cpp
+  CfgView.cpp
+  SecmngAdmin.vcxproj -> F:\SecmngAdmin\Debug\SecmngAdmin.exe
